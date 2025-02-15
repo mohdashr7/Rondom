@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+
+    <style>
+        body{
+            background-color: #F7F9FC;
+
+            color: #333333;
+
+
+            justify-content: center;
+
+            align-items: center;
+
+            height: 100vh;
+
+            margin: 0;
+
+        }
+        .start , h5 {
+            font-family: 'Cairo', sans-serif;
+            text-align: center;
+            font-size: medium;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+
+            display: flexbox;
+        }
+        h2 {
+            color: #333;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #eee;
+            padding: 10px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+        }
+        .delete {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .but {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .page-buttons button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #colceleter {
+            background-color: #4285F4;
+            color: white;
+        }
+
+        #namerondom {
+            background-color: #FF7139;
+            color: white;
+        }
+
+        #pas {
+            background-color: #000000;
+            color: white;
+        }
+
+        #quote {
+            background-color: #0078D7;
+            color: white;
+        }
+
+
+        @media (max-width:767px) {
+            .container , .but{
+                flex-direction: column;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width:1023px){
+            .container , .but{
+                flex-direction: row;
+            }
+        }
+
+        @media (min-width:1024px){
+            .container , .but{
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h3 class="start">Hi Welcome to the My rondom website🙂</h3>
+
+    <h5>Now You Are In The 'TO Do List' </h5>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <h2>To-Do List ✅</h2>
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <button id="addTaskButton">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="but">
+        <h1>Chose where do you want to go ?</h1>
+        <div class="page-buttons">
+            <button id="colceleter">colceleter</button>
+            <button id="namerondom">namerondom</button>
+            <button id="pas">pas</button>
+            <button id="quote">quote</button>
+        </div>
+    </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadTasks();
+            document.getElementById("addTaskButton").addEventListener("click", addTask);
+        });
+
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value.trim();
+            if (taskText === "") return;
+
+            let li = document.createElement("li");
+            li.innerHTML = `${taskText} <button class="delete" onclick="removeTask(this)">❌</button>`;
+
+            document.getElementById("taskList").appendChild(li);
+            saveTasks();
+            taskInput.value = "";
+        }
+
+        function removeTask(button) {
+            button.parentElement.remove();
+            saveTasks();
+        }
+
+        function saveTasks() {
+            let tasks = [];
+            document.querySelectorAll("#taskList li").forEach(li => {
+                tasks.push(li.textContent.replace("❌", "").trim());
+            });
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            let taskList = document.getElementById("taskList");
+            tasks.forEach(task => {
+                let li = document.createElement("li");
+                li.innerHTML = `${task} <button class="delete" onclick="removeTask(this)">❌</button>`;
+                taskList.appendChild(li);
+            });
+        }
+// الحصول على العناصر
+const colceleterButton = document.getElementById('colceleter');
+        const namerondomButton = document.getElementById('namerondom');
+        const pasButton = document.getElementById('pas');
+        const quoteButton = document.getElementById('quote');
+
+        // إضافة مستمعين للأحداث
+        colceleterButton.addEventListener('click', () => {
+            window.location.href = 'colceleter.html'; // الانتقال إلى colceleter.html
+        });
+
+        namerondomButton.addEventListener('click', () => {
+            window.location.href = 'namerondom.html'; // الانتقال إلى namerondom.html
+        });
+
+        pasButton.addEventListener('click', () => {
+            window.location.href = 'pas.html'; // الانتقال إلى pas.html
+        });
+
+        quoteButton.addEventListener('click', () => {
+            window.location.href = 'quote.html'; // الانتقال إلى quote.html
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آلة حاسبة علمية</title>
+    <style>
+        /* التنسيقات العامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: #27445D;
+            color: #497D74;
+            display: fle;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            width: 400px;
+            background-color: #2c3e50;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .display {
+            width: 100px;
+            height: 100px;
+            background-color: #34495e;
+            color: #ecf0f1;
+            font-size: 2.5rem;
+            text-align: right;
+            padding: 20px;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+        }
+
+        .buttons button {
+            padding: 20px;
+            font-size: 1.5rem;
+            background-color: #34495e;
+            color: #ecf0f1;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #1abc9c;
+        }
+
+        .buttons button.operator {
+            background-color: #e67e22;
+        }
+
+        .buttons button.operator:hover {
+            background-color: #d35400;
+        }
+
+        .buttons button.function {
+            background-color: #3498db;
+        }
+
+        .buttons button.function:hover {
+            background-color: #2980b9;
+        }
+
+        .buttons button.equal {
+            background-color: #2ecc71;
+            grid-column: span 2;
+        }
+
+        .buttons button.equal:hover {
+            background-color: #27ae60;
+        }
+
+        .page-buttons button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #todo {
+            background-color: #4285F4;
+            color: white;
+        }
+
+        #namerondom {
+            background-color: #FF7139;
+            color: white;
+        }
+
+        #pas {
+            background-color: #000000;
+            color: white;
+        }
+
+        #quote {
+            background-color: #0078D7;
+            color: white;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h2>Now You Are In the colceleter Mod</h2>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled>
+        <div class="buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">DEL</button>
+            <button onclick="appendOperator('%')">%</button>
+            <button class="operator" onclick="appendOperator('/')">/</button>
+            <button class="function" onclick="appendFunction('Math.sqrt(')">√</button>
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button class="operator" onclick="appendOperator('*')">*</button>
+            <button class="function" onclick="appendFunction('Math.pow(')">^</button>
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button class="operator" onclick="appendOperator('-')">-</button>
+            <button class="function" onclick="appendFunction('Math.sin(')">sin</button>
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button class="operator" onclick="appendOperator('+')">+</button>
+            <button class="function" onclick="appendFunction('Math.cos(')">cos</button>
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="appendNumber('.')">.</button>
+            <button class="function" onclick="appendFunction('Math.tan(')">tan</button>
+            <button class="equal" onclick="calculate()">=</button>
+            <button class="function" onclick="appendFunction('Math.log(')">log</button>
+        </div>
+    </div>
+
+    <div class="but">
+        <h1>Chose where do you want to go ?</h1>
+        <div class="page-buttons">
+            <button id="todo">todo list</button>
+            <button id="namerondom">namerondom</button>
+            <button id="pas">pas</button>
+            <button id="quote">quote</button>
+        </div>
+
+    <script>
+        // الوظائف الأساسية للآلة الحاسبة
+        const display = document.getElementById('display');
+
+        function appendNumber(number) {
+            // تجنب إضافة أكثر من نقطة عشرية في نفس العدد
+            if (number === '.' && display.value.includes('.')) {
+                return;
+            }
+            display.value += number;
+        }
+
+        function appendOperator(operator) {
+            // تجنب إضافة أكثر من عامل تشغيل متتالي
+            const lastChar = display.value.slice(-1);
+            if (['+', '-', '*', '/', '%'].includes(lastChar)) {
+                return;
+            }
+            display.value += operator;
+        }
+
+        function appendFunction(func) {
+            // إضافة الدوال العلمية
+            display.value += func;
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        function calculate() {
+            try {
+                // استبدال النسبة المئوية بالقسمة على 100
+                let expression = display.value.replace(/%/g, '/100');
+                // إضافة القوس المغلق إذا كان مطلوبًا
+                if ((expression.match(/\(/g) || []).length > (expression.match(/\)/g) || []).length) {
+                    expression += ')';
+                }
+                display.value = eval(expression);
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+
+        const colceleterButton = document.getElementById('todo');
+        const namerondomButton = document.getElementById('namerondom');
+        const pasButton = document.getElementById('pas');
+        const quoteButton = document.getElementById('quote');
+
+        // إضافة مستمعين للأحداث
+        colceleterButton.addEventListener('click', () => {
+            window.location.href = 'todo.html'; // الانتقال إلى todo.html
+        });
+
+        namerondomButton.addEventListener('click', () => {
+            window.location.href = 'namerondom.html'; // الانتقال إلى namerondom.html
+        });
+
+        pasButton.addEventListener('click', () => {
+            window.location.href = 'pas.html'; // الانتقال إلى pas.html
+        });
+
+        quoteButton.addEventListener('click', () => {
+            window.location.href = 'quote.html'; // الانتقال إلى quote.html
+        });
+
+   
+
+    </script>
+</body>
+</html>

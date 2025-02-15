@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Name Generator</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #09122C;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #1A2A4F;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #FFD700; /* Gold color for the heading */
+        }
+
+        .name-display {
+            font-size: 2rem;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #2C3E50;
+            border-radius: 10px;
+            color: #00FF7F; /* Bright green for the name */
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .options label {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            background-color: #3498db; /* Blue button */
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Name Generator</h1>
+        <div class="options">
+            <label>
+                <input type="radio" name="gender" value="male" checked> Male
+            </label>
+            <label>
+                <input type="radio" name="gender" value="female"> Female
+            </label>
+        </div>
+        <div class="name-display" id="nameDisplay">Click the button to generate a name</div>
+        <button onclick="generateName()">Generate Name</button>
+    </div>
+
+    <div class="but">
+        <h1>Chose where do you want to go ?</h1>
+        <div class="page-buttons">
+            <button id="todo">todo list</button>
+            <button id="pas">pas</button>
+            <button id="colceleter">colceleter</button>
+            <button id="quote">quote</button>
+        </div>
+
+    <script>
+        // List of male and female names (15 each)
+        const maleNames = [
+            "Mohammad", "Ahmed", "Ali", "Omar", "Khalid", "Youssef", "Hassan", "Abdullah", "Fahad", "Ibrahim",
+            "Tariq", "Saad", "Zayed", "Hamza", "Saeed"
+        ];
+
+        const femaleNames = [
+            "Layla", "Aisha", "Fatima", "Zainab", "Mariam", "Noura", "Sarah", "Hala", "Rana", "Amal",
+            "Dalia", "Yasmin", "Rania", "Samira", "Nadia"
+        ];
+
+        // Function to generate a random name
+        function generateName() {
+            const isMale = document.querySelector('input[name="gender"]:checked').value === "male";
+            const names = isMale ? maleNames : femaleNames;
+            const randomIndex = Math.floor(Math.random() * names.length);
+            const randomName = names[randomIndex];
+            document.getElementById("nameDisplay").textContent = randomName;
+        }
+
+        const colceleterButton = document.getElementById('todo');
+        const namerondomButton = document.getElementById('pas');
+        const pasButton = document.getElementById('colceleter');
+        const quoteButton = document.getElementById('quote');
+
+        // إضافة مستمعين للأحداث
+        colceleterButton.addEventListener('click', () => {
+            window.location.href = 'todo.html'; // الانتقال إلى todo.html
+        });
+
+        namerondomButton.addEventListener('click', () => {
+            window.location.href = 'pas.html'; // الانتقال إلى namerondom.html
+        });
+
+        pasButton.addEventListener('click', () => {
+            window.location.href = 'colceleter.html'; // الانتقال إلى pas.html
+        });
+
+        quoteButton.addEventListener('click', () => {
+            window.location.href = 'quote.html'; // الانتقال إلى quote.html
+        });
+    
+    </script>
+</body>
+</html>

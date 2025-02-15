@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>creat password </title>
+    <Style>
+        *{
+            background-color: #3D8D7A;
+
+            color: #B3D8A8;
+            font-family: 'Tajawal', sans-serif;
+
+            .password-generator {
+            background-color: #FBFFE4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 350px;
+        }
+
+        .password-generator h1 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .password-generator input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #34495e;
+            color: #ecf0f1;
+        }
+
+        .password-generator .options {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .password-generator .options label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .password-generator .options input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .password-generator button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #ecf0f1;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .password-generator button:hover {
+            background-color: #2980b9;
+        }
+
+
+        }
+    </Style>
+</head>
+<body>
+<h3>Now you are in Password generator</h3>
+
+
+    <div class="password-generator">
+        <h1>  Password generator</h1>
+        <input type="text" id="password" readonly>
+        <div class="options">
+            <label>
+                <input type="checkbox" id="uppercase" checked> أحرف كبيرة (A-Z)
+            </label>
+            <label>
+                <input type="checkbox" id="lowercase" checked> أحرف صغيرة (a-z)
+            </label>
+            <label>
+                <input type="checkbox" id="numbers" checked> أرقام (0-9)
+            </label>
+            <label>
+                <input type="checkbox" id="symbols"> رموز خاصة (!@#$%^&*)
+            </label>
+        </div>
+        <button onclick="generatePassword()">إنشاء كلمة السر</button>
+    </div>
+
+    <div class="but">
+        <h1>Chose where do you want to go ?</h1>
+        <div class="page-buttons">
+            <button id="todo">todo list</button>
+            <button id="namerondom">namerondom</button>
+            <button id="colceleter">colceleter</button>
+            <button id="quote">quote</button>
+        </div>
+
+
+    <script>
+        // الدالة لإنشاء كلمة السر
+        function generatePassword() {
+            const uppercase = document.getElementById('uppercase').checked;
+            const lowercase = document.getElementById('lowercase').checked;
+            const numbers = document.getElementById('numbers').checked;
+            const symbols = document.getElementById('symbols').checked;
+
+            const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+            const numberChars = '0123456789';
+            const symbolChars = '!@#$%^&*()_+{}:"<>?[];,./`~';
+
+            let allowedChars = '';
+            let password = '';
+
+            if (uppercase) allowedChars += uppercaseChars;
+            if (lowercase) allowedChars += lowercaseChars;
+            if (numbers) allowedChars += numberChars;
+            if (symbols) allowedChars += symbolChars;
+
+            if (allowedChars.length === 0) {
+                alert('الرجاء اختيار خيار واحد على الأقل!');
+                return;
+            }
+
+            for (let i = 0; i < 12; i++) {
+                const randomIndex = Math.floor(Math.random() * allowedChars.length);
+                password += allowedChars[randomIndex];
+            }
+
+            document.getElementById('password').value = password;
+        }
+
+        const colceleterButton = document.getElementById('todo');
+        const namerondomButton = document.getElementById('namerondom');
+        const pasButton = document.getElementById('colceleter');
+        const quoteButton = document.getElementById('quote');
+
+        // إضافة مستمعين للأحداث
+        colceleterButton.addEventListener('click', () => {
+            window.location.href = 'todo.html'; // الانتقال إلى todo.html
+        });
+
+        namerondomButton.addEventListener('click', () => {
+            window.location.href = 'namerondom.html'; // الانتقال إلى namerondom.html
+        });
+
+        pasButton.addEventListener('click', () => {
+            window.location.href = 'colceleter.html'; // الانتقال إلى pas.html
+        });
+
+        quoteButton.addEventListener('click', () => {
+            window.location.href = 'quote.html'; // الانتقال إلى quote.html
+        });
+    </script>
+
+</body>
+</html>

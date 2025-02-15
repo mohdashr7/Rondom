@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        /* التنسيقات العامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #09122C;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #1A2A4F;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease-in-out;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #FFD700; /* لون ذهبي للعنوان */
+            animation: glow 2s infinite alternate;
+        }
+
+        .quote-display {
+            font-size: 1.5rem;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #2C3E50;
+            border-radius: 10px;
+            color: #00FF7F; /* لون أخضر للاقتباس */
+            animation: slideIn 1s ease-in-out;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .options label {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: #FFD700;
+        }
+
+        .options select {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+            background-color: #2C3E50;
+            color: #FFFFFF;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            background-color: #3498db; /* زر أزرق */
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            animation: pulse 2s infinite;
+        }
+
+        button:hover {
+            background-color: #2980b9; /* زر أزرق داكن عند التحويم */
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .page-selector {
+            margin-top: 20px;
+        }
+
+        .page-selector label {
+            font-size: 1.2rem;
+            color: #FFD700;
+        }
+
+        .page-selector select {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+            background-color: #2C3E50;
+            color: #FFFFFF;
+            margin-left: 10px;
+        }
+
+        /* الأنيميشنات */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
+            }
+            to {
+                text-shadow: 0 0 20px #FFD700, 0 0 40px #FFD700;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Quote Generator</h1>
+        <div class="options">
+            <label for="language">Select Language:</label>
+            <select id="language">
+                <option value="english">English</option>
+                <option value="arabic">العربية</option>
+                <option value="dutch">Nederlands</option>
+            </select>
+        </div>
+        <div class="quote-display" id="quoteDisplay">Click the button to generate a quote</div>
+        <button onclick="generateQuote()">Generate Quote</button>
+
+        <!-- مربع اختيار الصفحات -->
+        <div class="page-selector">
+            <label for="pageSelect">Go to:</label>
+            <select id="pageSelect" onchange="navigateToPage()">
+                <option value="">Select a page</option>
+                <option value="namerondom.html">Namerondom</option>
+                <option value="colceleter.html">Colceleter</option>
+                <option value="pas.html">PAS</option>
+                <option value="todo.html">To-Do List</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        // قائمة الاقتباسات
+        const quotes = {
+            english: [
+                "The only limit to our realization of tomorrow is our doubts of today. – Franklin D. Roosevelt",
+                "Do what you can, with what you have, where you are. – Theodore Roosevelt",
+                "It always seems impossible until it's done. – Nelson Mandela",
+                "The best way to predict the future is to create it. – Peter Drucker",
+                "Life is 10% what happens to us and 90% how we react to it. – Charles R. Swindoll"
+            ],
+            arabic: [
+                "النجاح هو مجموع الجهود الصغيرة التي تتكرر يومياً. – روبرت كولير",
+                "لا تنتظر الظروف المثالية، بل اجعل الظروف مثالية. – جورج برنارد شو",
+                "الطموح هو الطريق إلى النجاح، والمثابرة هي السيارة التي توصلك إليه. – بيل برادلي",
+                "إذا كنت تعتقد أنك تستطيع، أو تعتقد أنك لا تستطيع، فأنت على حق. – هنري فورد",
+                "النجاح ليس نهاية، والفشل ليس قاتلاً: الشجاعة هي التي تهم. – ونستون تشرشل"
+            ],
+            dutch: [
+                "Succes is de som van kleine inspanningen, dagelijks herhaald. – Robert Collier",
+                "Wacht niet op de perfecte omstandigheden, maar maak de omstandigheden perfect. – George Bernard Shaw",
+                "Ambitie is de weg naar succes, en doorzettingsvermogen is het voertuig dat je er brengt. – Bill Bradley",
+                "Of je denkt dat je het kunt, of je denkt dat je het niet kunt, je hebt gelijk. – Henry Ford",
+                "Succes is niet definitief, falen is niet fataal: moed telt. – Winston Churchill"
+            ]
+        };
+
+        // توليد اقتباس عشوائي
+        function generateQuote() {
+            const language = document.getElementById("language").value;
+            const quoteList = quotes[language];
+            const randomIndex = Math.floor(Math.random() * quoteList.length);
+            const randomQuote = quoteList[randomIndex];
+            document.getElementById("quoteDisplay").textContent = randomQuote;
+        }
+
+        // الانتقال إلى صفحة محددة
+        function navigateToPage() {
+            const selectedPage = document.getElementById("pageSelect").value;
+            if (selectedPage) {
+                window.location.href = selectedPage;
+            }
+        }
+    </script>
+</body>
+</html>
